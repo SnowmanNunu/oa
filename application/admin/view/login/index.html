@@ -8,22 +8,23 @@
 </head>
 <body>
 	<div id="container">
+        <form action="{:url('login/checkLogin')}" method="post">
 		<div id="bd">
 			<div class="login1">
             	<div class="login-top"><h1 class="logo"></h1></div>
                 <div class="login-input">
                 	<p class="user ue-clear">
                     	<label>用户名</label>
-                        <input type="text" />
+                        <input type="text" name="username"/>
                     </p>
                     <p class="password ue-clear">
                     	<label>密&nbsp;&nbsp;&nbsp;码</label>
-                        <input type="text" />
+                        <input type="password" name="password" />
                     </p>
                     <p class="yzm ue-clear">
                     	<label>验证码</label>
-                        <input type="text" />
-                        <cite>X394D</cite>
+                        <input type="text" name="captcha" maxlength="4"/>
+                        <cite><img style="width: 245px;margin-right: -11px;height: 39px;" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?'+Math.random()"/></cite>
                     </p>
                 </div>
                 <div class="login-btn ue-clear">
@@ -36,6 +37,7 @@
                 </div>
             </div>
 		</div>
+        </form>
 	</div>
     <div id="ft">CopyRight&nbsp;2014&nbsp;&nbsp;版权所有&nbsp;&nbsp;uimaker.com专注于ui设计&nbsp;&nbsp;苏ICP备09003079号</div>
 </body>
@@ -70,5 +72,14 @@ function checkRemember($this){
 		}
 	}
 }
+
+//jQuery代码
+$(function(){
+    //给登录按钮绑定点击事件
+    $('.btn').on('click',function(){
+        //事件处理程序
+        $('form').submit();
+    });
+});
 </script>
 </html>
