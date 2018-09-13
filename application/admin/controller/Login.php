@@ -41,4 +41,10 @@ class Login extends Controller
         return true;
         }
     }
+
+    //退出登录
+        public function logout(){
+        session(null);
+        $this->success('退出成功！','Login/index');
+    }
 }
