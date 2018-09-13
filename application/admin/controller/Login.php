@@ -1,6 +1,9 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
+use app\admin\model\User;
+// use think\Session;
+// use think\Db;
 //use think\captcha\Captcha;
 
 class Login extends Controller
@@ -15,15 +18,16 @@ class Login extends Controller
  	{
  		if (request()->isPost()) {
  		$data = input('post.');
- 		dump($data);
  		$this->check(input('code'));
- 		if ($data['password']==md5($data['password'])) {
-		    session('name',$data['name']);
-		    $this->success('登录成功！',url('Login/index'));
- 		}else{
- 			$this->success('登录失败！',url('Login/index'));
- 		}
-
+ 		$admin=new User();
+        $num=$admin->login($data);
+        if($num==3){
+            $this->success('信息正确，正在为您跳转...',url('index/index'));
+        }elseif($num==1){
+                $this->error('用户不存在');
+        }else{
+            $this->error('密码错误');
+        }
  		}
  		
  	}
