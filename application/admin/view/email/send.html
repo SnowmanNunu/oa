@@ -28,9 +28,9 @@
     	<label>收件人：</label>
         <select name="to_id">
         	<option value="0">请选择收件人</option>
-        	<volist name='data' id='vol'>
-        		
-        	</volist>
+        	{volist name='data' id='vol'}
+        		<option value="{$vol.id}">{$vol.truename}</option>
+        	{/volist}
         </select>
     </p>
 	<p class="short-input ue-clear">

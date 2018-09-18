@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="__ADMIN__/css/base.css" />
-<link rel="stylesheet" href="__ADMIN__/css/info-mgt.css" />
-<link rel="stylesheet" href="__ADMIN__/css/WdatePicker.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/base.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/info-mgt.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/WdatePicker.css" />
 <title>移动办公自动化系统</title>
 <style type='text/css'>
 	table tr .id{ width:63px; text-align: center;}
@@ -43,33 +43,33 @@
             </tr>
         </thead>
         <tbody>
-        	<volist name='data' id='vo'>
+        	{volist name='data' id='vo'}
         	<tr>
             	<td class="id">{$vo.id}</td>
                 <td class="name">{$vo.truename}</td>
                 <td class="name">{$vo.title}</td>
 				<td class="file">{$vo.filename}<if condition='$vo.hasfile == 1'>【<a href="__CONTROLLER__/download/id/{$vo.id}">下载</a>】</if></td>
-                <td class="content">{$vo.content|msubstr=###,0,10}</td>
+                <td class="content">{$vo.content|mb_substr=###,0,10}</td>
                 <td class="addtime">{$vo.addtime|date='Y-m-d H:i:s',###}</td>
                 <td class="status"><if condition='$vo.isread == 0'><span style="color: red;">未读</span><else/><span style="color:grey;">已读</span></if></td>
                 <td class="operate">
                 	<a href ='javascript:;'>删除</a> 
                 </td>
             </tr>
-            </volist>
+            {/volist}
         </tbody>
     </table>
 </div>
 <div class="pagination ue-clear">
-	<div class="pagin-list">
-		{$page}
-	</div>
-	<div class="pxofy">共 {$count} 条记录</div>
+	<!-- <div class="pagin-list"> -->
+		{$data->render()}
+	<!-- </div> -->
+	<div class="pxofy">共{$counts}条记录</div>
 </div>
 </body>
-<script type="text/javascript" src="__ADMIN__/js/jquery.js"></script>
-<script type="text/javascript" src="__ADMIN__/js/common.js"></script>
-<script type="text/javascript" src="__ADMIN__/js/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/WdatePicker.js"></script>
 <script type="text/javascript">
 $(".select-title").on("click",function(){
 	$(".select-list").hide();

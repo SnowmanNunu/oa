@@ -1,26 +1,54 @@
 <?php
 namespace app\admin\model;
 use think\Model;
-// use think\Db;
+use think\Db;
 
 class Email extends Model
 {
-	// 文件上传提交
-	public function up(Request $request)
-	{
-	// 获取表单上传文件
-	$file = $request->file('file');
-	if (empty($file)) {
-	$this->error('请选择上传文件');
-	}
-	// 移动到框架应用根目录/public/uploads/ 目录下
-	$info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
-	if ($info) {
-	$this->success('文件上传成功：' . $info->getRealPath());
-	} else {
-	// 上传失败获取错误信息
-	$this->error($file->getError());
-	}
-	}
+
+	public function upload(){
+    // 获取表单上传文件 例如上传了001.jpg
+    $file = request()->file('file');
+    
+    // 移动到框架应用根目录/public/uploads/ 目录下
+    if($file){
+        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+
+        if($info){
+            // 成功上传后 获取上传信息
+        	return "/public/uploads/".$info->getSaveName();
+            // 输出 jpg
+            //echo $info->getExtension();
+            // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
+            //echo $info->getSaveName();
+            // 输出 42a79759f284b767dfcb2a0197904287.jpg
+            //echo $info->getFilename(); 
+        }else{
+            // 上传失败获取错误信息
+            echo $file->getError();
+        }
+    }
+}
+
+    public function recUser(){
+        $data = db('user')->field('id,truename')->where('id !=' . session('id')) ->select();
+        return $data;
+    }
+
+    public function sendBox(){
+        // $data = Db::name('sp_email')-> field('t1.*,t2.truename as truename') -> alias('t1') -> join('left join sp_user as t2 on t1.to_id = t2.id') -> where('t1.from_id = ' . session('id')) -> select();
+        $data = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->paginate(2);
+        $counts = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->count();
+
+       $data['data']=$data;
+       $data['counts']=$counts;
+       return $data;
+    }
+
+
+    public function Ecount(){
+        $counts = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->count();
+        return $counts;
+    }
 
 }
