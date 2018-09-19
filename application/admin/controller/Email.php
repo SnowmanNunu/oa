@@ -35,10 +35,9 @@ class Email extends Controller
 	public function sendBox()
 	{
 		$email = new myEmail();
-		$data = $email->sendBox();
+	    $data= $email->sendBox();
 
-		$counts = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->count();
-		$this -> assign('counts',$counts);
+		//$this -> assign('counts',$info);
 		$this -> assign('data',$data);
 		return $this->fetch();
 	}
@@ -46,6 +45,9 @@ class Email extends Controller
 
 	public function recBox()
 	{
+		$email = new myEmail();
+	    $info= $email->recBox();
+		$this -> assign('data',$info);
 		return $this->fetch();
 	}
 

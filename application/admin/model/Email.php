@@ -39,10 +39,17 @@ class Email extends Model
         // $data = Db::name('sp_email')-> field('t1.*,t2.truename as truename') -> alias('t1') -> join('left join sp_user as t2 on t1.to_id = t2.id') -> where('t1.from_id = ' . session('id')) -> select();
         $data = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->paginate(2);
         $counts = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->count();
+       // $data['data']=$data;
+       // $data['counts']=$counts;
 
-       $data['data']=$data;
-       $data['counts']=$counts;
+       //dump($data);die;
        return $data;
+    }
+
+    public function recBox(){
+        echo session('id');
+        $data = Db::table('sp_email')-> field('t1.*,t2.truename as truename')->alias(['sp_email'=>'t1','sp_user'=>'t2'])-> where('t1.to_id ='.session('id'))->join('sp_user','t1.from_id= t2.id')->paginate(2);
+        return $data;
     }
 
 

@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="__ADMIN__/css/base.css" />
-    <link rel="stylesheet" href="__ADMIN__/css/info-mgt.css" />
-    <link rel="stylesheet" href="__ADMIN__/css/WdatePicker.css" />
+    <link rel="stylesheet" href="__PUBLIC__/css/base.css" />
+    <link rel="stylesheet" href="__PUBLIC__/css/info-mgt.css" />
+    <link rel="stylesheet" href="__PUBLIC__/css/WdatePicker.css" />
     <title>移动办公自动化系统</title>
     <style type='text/css'>
     table tr .id {
@@ -83,7 +83,7 @@
                 </tr>
             </thead>
             <tbody>
-                <volist name='data' id='vol'>
+                {volist name='data' id='vol'}
                     <tr>
                         <td class="id">{$vol.id}</td>
                         <td class="name">{$vol.truename}</td>
@@ -99,21 +99,20 @@
                             <a href='javascript:;' class="show" data="{$vol.id}" data-title="{$vol.title}" isread="{$vol.isread}">查看</a>
                         </td>
                     </tr>
-                </volist>
+                {/volist}
             </tbody>
         </table>
     </div>
     <div class="pagination ue-clear">
         <div class="pagin-list">
-            {$page}
+            {$data->render()}
         </div>
-        <div class="pxofy">共 {$count} 条记录</div>
     </div>
 </body>
-<script type="text/javascript" src="__ADMIN__/js/jquery.js"></script>
-<script type="text/javascript" src="__ADMIN__/js/common.js"></script>
-<script type="text/javascript" src="__ADMIN__/js/WdatePicker.js"></script>
-<script type="text/javascript" src="__ADMIN__/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugin/layer/layer.js"></script>
 <script type="text/javascript">
 $(".select-title").on("click", function() {
     $(".select-list").hide();
