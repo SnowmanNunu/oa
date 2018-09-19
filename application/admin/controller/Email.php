@@ -10,14 +10,16 @@ class Email extends Controller
 	public function send()
 	{
 	$email = new myEmail();
-       
+    $messages = $email->upload();
+    echo $messages['file'];
 	if (request()->isPost()) {
 		$data = input('post.');
 		$data=array(
             'from_id'=>session('id'),
             'to_id'=>$data['to_id'],
             'title'=>$data['title'],
-            'file'=>$email->upload(),
+            'file'=>$messages['file'],
+            'filename'=>$messages['filename'],
             'content'=>$data['content'],
             'addtime'=>time()
         );
@@ -57,16 +59,18 @@ class Email extends Controller
     public function download(){
         //接收id
         $id = input('id');
+        echo $id;
         //查询信息
         $data = db('email') -> find($id);
         $file_name = $data['filename'];    //下載文件名
         $file_dir = ROOT_PATH.'public'.DS.'uploads'.'/';  //下載文件存放目錄
         //echo $file_dir.$file_name;      //D:\XAMPP\htdocs\oa\public\uploads/
-        echo $file_dir;
+        echo $file_dir.$file_name;
         // $file_dir = "D:/XAMPP/htdocs/oa/public/uploads/20180919/";
         // $file_name = "9205672a411be2bd619e77a332e59f84.jpg";
 
        // echo $file_dir.$file_name;
+        die;
         if (!file_exists($file_dir.$file_name)) {
             echo "文件找不到！";
             exit();

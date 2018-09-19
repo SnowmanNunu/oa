@@ -16,7 +16,9 @@ class Email extends Model
 
         if($info){
             // 成功上传后 获取上传信息
-        	return "public/uploads/".$info->getSaveName();
+            $data['file'] = "public/uploads/".$info->getSaveName();
+            $data['filename'] = $info->getFilename();
+        	return $data;
             // 输出 jpg
             //echo $info->getExtension();
             // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
