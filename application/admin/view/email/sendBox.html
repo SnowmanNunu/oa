@@ -48,7 +48,7 @@
             	<td class="id">{$vo.id}</td>
                 <td class="name">{$vo.truename}</td>
                 <td class="name">{$vo.title}</td>
-				<td class="file">{$vo.filename}<if condition='$vo.hasfile == 1'>【<a href="__CONTROLLER__/download/id/{$vo.id}">下载</a>】</if></td>
+				<td class="file">{$vo.filename}<if condition='$vo.hasfile == 1'>【<a href="{:url('email/download',array('id'=>$vo['id']))}">下载</a>】</if></td>
                 <td class="content">{$vo.content|mb_substr=###,0,10}</td>
                 <td class="addtime">{$vo.addtime|date='Y-m-d H:i:s',###}</td>
                 <td class="status"><if condition='$vo.isread == 0'><span style="color: red;">未读</span><else/><span style="color:grey;">已读</span></if></td>
