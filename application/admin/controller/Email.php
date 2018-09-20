@@ -59,18 +59,11 @@ class Email extends Controller
     public function download(){
         //接收id
         $id = input('id');
-        echo $id;
         //查询信息
         $data = db('email') -> find($id);
-        $file_name = $data['filename'];    //下載文件名
-        $file_dir = ROOT_PATH.'public'.DS.'uploads'.'/';  //下載文件存放目錄
-        //echo $file_dir.$file_name;      //D:\XAMPP\htdocs\oa\public\uploads/
+        $file_name = $data['file'];   //下載文件名
+        $file_dir = ROOT_PATH.'public'.DS.'uploads'.'/';  //下載文件的存放目錄
         echo $file_dir.$file_name;
-        // $file_dir = "D:/XAMPP/htdocs/oa/public/uploads/20180919/";
-        // $file_name = "9205672a411be2bd619e77a332e59f84.jpg";
-
-       // echo $file_dir.$file_name;
-        die;
         if (!file_exists($file_dir.$file_name)) {
             echo "文件找不到！";
             exit();
@@ -82,7 +75,7 @@ class Email extends Controller
             header("Content-Disposition:attachment;filename=".$file_name);
             ob_clean();
             flush();      //清除文件中多餘的路徑名以及解決亂碼的問題
-           // echo fread($file1, filesize($file_dir.$file_name));
+            echo fread($file1, filesize($file_dir.$file_name));   //要echo,否则为空
             fclose($file1);
             exit();
         }

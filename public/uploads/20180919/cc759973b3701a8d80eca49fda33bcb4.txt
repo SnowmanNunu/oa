@@ -1,6 +1,0 @@
-    <td width="3% align="center">序号</td>
-	<td width="3% align="center">复选</td>
-    <td width="50% align="center"><strong>案件描述</strong></td>
-    <td align="center"><strong>联系电话</strong></td>
-    <td align="center"><strong>地区</strong></td>
-    <td align="center"><strong>提交时间</strong></td>

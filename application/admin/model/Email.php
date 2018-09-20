@@ -16,13 +16,16 @@ class Email extends Model
 
         if($info){
             // 成功上传后 获取上传信息
-            $data['file'] = "public/uploads/".$info->getSaveName();
+            $data['file'] = $info->getSaveName();
+            //$data['file'] = "public/uploads/".$info->getSaveName();
             $data['filename'] = $info->getFilename();
         	return $data;
             // 输出 jpg
             //echo $info->getExtension();
+
             // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
             //echo $info->getSaveName();
+
             // 输出 42a79759f284b767dfcb2a0197904287.jpg
             //echo $info->getFilename(); 
         }else{
@@ -40,8 +43,9 @@ class Email extends Model
     }
 
     public function sendBox(){
-        // $data = Db::name('sp_email')-> field('t1.*,t2.truename as truename') -> alias('t1') -> join('left join sp_user as t2 on t1.to_id = t2.id') -> where('t1.from_id = ' . session('id')) -> select();
-        $data = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->paginate(2);
+        // $data = M("Email") -> field('t1.*,t2.truename as truename') -> alias('t1') -> join('left join sp_user as t2 on t1.to_id = t2.id') -> where('t1.from_id = ' . session('id')) -> select();
+
+        $data = Db::table('sp_email')-> field('t1.*,t2.truename as truename')->alias(['sp_email'=>'t1','sp_user'=>'t2'])-> where('t1.from_id = ' . session('id'))->Join('sp_user','t1.to_id= t2.id')->paginate(2);
         $counts = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->count();
        // $data['data']=$data;
        // $data['counts']=$counts;
