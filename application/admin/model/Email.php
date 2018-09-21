@@ -5,7 +5,8 @@ use think\Db;
 
 class Email extends Model
 {
-
+    
+    //上传函数upload
 	public function upload(){
     // 获取表单上传文件 例如上传了001.jpg
     $file = request()->file('file');
@@ -43,8 +44,6 @@ class Email extends Model
     }
 
     public function sendBox(){
-        // $data = M("Email") -> field('t1.*,t2.truename as truename') -> alias('t1') -> join('left join sp_user as t2 on t1.to_id = t2.id') -> where('t1.from_id = ' . session('id')) -> select();
-
         $data = Db::table('sp_email')-> field('t1.*,t2.truename as truename')->alias(['sp_email'=>'t1','sp_user'=>'t2'])-> where('t1.from_id = ' . session('id'))->Join('sp_user','t1.to_id= t2.id')->paginate(2);
         $counts = Db::table('sp_email')->alias(['sp_email'=>'t1','sp_user'=>'t2'])->join('sp_user','t1.to_id= t2.id')->count();
        // $data['data']=$data;
@@ -54,14 +53,6 @@ class Email extends Model
 
     public function recBox(){
         $data = Db::table('sp_email')-> field('t1.*,t2.truename as truename')->alias(['sp_email'=>'t1','sp_user'=>'t2'])-> where('t1.to_id ='.session('id'))->join('sp_user','t1.from_id= t2.id')->paginate(2);
-        return $data;
-    }
-
-
-    public function getCountent(){
-        // $data = db('email')-> where("id = $id and to_id = " . session('id'))-find();
-        $data = db('email')-> where('id=' . session('id')) ->select();
-        //dump($data);
         return $data;
     }
 

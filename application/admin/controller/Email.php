@@ -96,9 +96,4 @@ class Email extends Controller
 
 
 
-
-
-
-
-
 }
