@@ -11,7 +11,7 @@ class Email extends Controller
 	{
 	$email = new myEmail();
     $messages = $email->upload();
-    echo $messages['file'];
+    //echo $messages['file'];
 	if (request()->isPost()) {
 		$data = input('post.');
 		$data=array(
@@ -27,7 +27,7 @@ class Email extends Controller
 		if ($res) {
 			$this -> success('邮件发送成功！',url('send'),2);
 		}else{
-			$this -> error('邮件发送失败！');
+			$this -> error('邮件发送失败！'); 
 		}
 
 	}
@@ -84,19 +84,14 @@ class Email extends Controller
     //getContent
 	public function getContent(){
 		//获取id
-		$id = input('id');
-		echo $id;
-		$email = new myEmail();
-	    $data= $email->getCount();
-	    //var_dump($data[0]['isread']);
-	    die;
+		$id = input();
+		// $id = 4;
+		//$email = new myEmail();
+	    // $data= $email->getContent();
+	    // dump($data[0]['isread']);die;
+	    $data = db('email')-> where("id = $id and to_id = " . session('id')) ->select();
 		if($data[0]['isread'] == 0){
 		$res = Db::name('email')->where('id', $id)->setInc('isread', 1);
-		if ($res) {
-			echo 1;
-		}else{
-			echo 2;
-		}
 		}
 		//输出内容
 		echo $data[0]['content'];
