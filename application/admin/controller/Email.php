@@ -84,11 +84,8 @@ class Email extends Controller
     //getContent
 	public function getContent(){
 		//获取id
-		$id = input();
-		// $id = 4;
-		//$email = new myEmail();
-	    // $data= $email->getContent();
-	    // dump($data[0]['isread']);die;
+		$id= input();
+		$id = $id['id'];
 	    $data = db('email')-> where("id = $id and to_id = " . session('id')) ->select();
 		if($data[0]['isread'] == 0){
 		$res = Db::name('email')->where('id', $id)->setInc('isread', 1);

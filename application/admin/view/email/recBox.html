@@ -88,12 +88,13 @@
                         <td class="id">{$vol.id}</td>
                         <td class="name">{$vol.truename}</td>
                         <td class="name">{$vol.title}</td>
-                        <td class="file"><a href="{:url('email/getContent',array('id'=>$vol['id']))}">{$vol.filename}</a></td>
+                        <td class="file"><a href="{:url('email/download',array('id'=>$vol['id']))}">{$vol.filename}</a></td>
                         <td class="content">{$vol.content}</td>
                         <td class="addtime">{$vol.addtime|date='Y-m-d H:i:s',###}</td>
                         <td class="status">
-                            <if condition='$vol.isread == 0'><span style="color: blue;">未读</span>
-                                <else/><span style="color: violet;">已读</span></if>
+                            {if condition="$vol.isread == '0'"}<span style="color: blue;">未读</span>
+                            {else /} <span style="color: violet;">已读</span>
+                            {/if}
                         </td>
                         <td class="operate">
                             <a href='javascript:;' class="show" data="{$vol.id}" data-title="{$vol.title}" isread="{$vol.isread}">查看</a>
@@ -143,7 +144,7 @@ $(function() {
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '500px'],
             // content: '__CONTROLLER__/getContent/id/' + id,
-            content: '{:url("Email/getContent")}',
+            content: '/admin/email/getContent/id/' + id,
             end: function(){
                 //处理关闭的操作
                 if(isread == 0){
