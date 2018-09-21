@@ -88,7 +88,7 @@
                         <td class="id">{$vol.id}</td>
                         <td class="name">{$vol.truename}</td>
                         <td class="name">{$vol.title}</td>
-                        <td class="file"><if condition='$vol.hasfile == 1'><a href='__CONTROLLER__/download/id/{$vol.id}'>{$vol.filename}</a></if></td>
+                        <td class="file"><a href="{:url('email/download',array('id'=>$vol['id']))}">{$vol.filename}</a></td>
                         <td class="content">{$vol.content}</td>
                         <td class="addtime">{$vol.addtime|date='Y-m-d H:i:s',###}</td>
                         <td class="status">
@@ -142,7 +142,8 @@ $(function() {
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '500px'],
-            content: '__CONTROLLER__/getContent/id/' + id,
+            // content: '__CONTROLLER__/getContent/id/' + id,
+            content: {:url('email/getContent',array('id'=>'id'))},
             end: function(){
                 //处理关闭的操作
                 if(isread == 0){

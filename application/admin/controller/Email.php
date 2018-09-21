@@ -50,8 +50,8 @@ class Email extends Controller
 	public function recBox()
 	{
 		$email = new myEmail();
-	    $info= $email->recBox();
-		$this -> assign('data',$info);
+	    $data= $email->recBox();
+		$this -> assign('data',$data);
 		return $this->fetch();
 	}
 
@@ -80,6 +80,27 @@ class Email extends Controller
             exit();
         }
     }
+
+    //getContent
+	public function getContent(){
+		//获取id
+		$id = input('id');
+		echo $id;
+		$email = new myEmail();
+	    $data= $email->getCount();
+	    //var_dump($data[0]['isread']);
+	    die;
+		if($data[0]['isread'] == 0){
+		$res = Db::name('email')->where('id', $id)->setInc('isread', 1);
+		if ($res) {
+			echo 1;
+		}else{
+			echo 2;
+		}
+		}
+		//输出内容
+		echo $data[0]['content'];
+	}
 
 
 

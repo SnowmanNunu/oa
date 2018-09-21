@@ -58,4 +58,12 @@ class Email extends Model
     }
 
 
+    public function getCount(){
+        // $data = db('email')-> where("id = $id and to_id = " . session('id'))-find();
+        $data = db('email')-> where('id=' . session('id')) ->select();
+        dump($data);
+        return $data;
+    }
+
+
 }
